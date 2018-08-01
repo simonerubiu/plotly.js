@@ -20,21 +20,17 @@ var PTS_LINESONLY = require('../scatter/constants').PTS_LINESONLY;
 
 var attributes = require('./attributes');
 
-module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
+function supplyDefaults(traceIn, traceOut, defaultColor, layout) {
     function coerce(attr, dflt) {
         return Lib.coerce(traceIn, traceOut, attributes, attr, dflt);
     }
 
-    var r = coerce('r');
-    var theta = coerce('theta');
-    var len = (r && theta) ? Math.min(r.length, theta.length) : 0;
+    var len = handleRThetaDefaults(traceIn, traceOut, layout, coerce);
 
     if(!len) {
         traceOut.visible = false;
         return;
     }
-
-    traceOut._length = len;
 
     coerce('thetaunit');
     coerce('mode', len < PTS_LINESONLY ? 'lines+markers' : 'lines');
@@ -76,4 +72,17 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
     coerce('hoveron', dfltHoverOn.join('+') || 'points');
 
     Lib.coerceSelectionMarkerOpacity(traceOut, coerce);
+}
+
+function handleRThetaDefaults(traceIn, traceOut, layout, coerce) {
+    var r = coerce('r');
+    var theta = coerce('theta');
+    var len = (r && theta) ? Math.min(r.length, theta.length) : 0;
+    traceOut._length = len;
+    return len;
+}
+
+module.exports = {
+    supplyDefaults: supplyDefaults,
+    handleRThetaDefaults: handleRThetaDefaults
 };
