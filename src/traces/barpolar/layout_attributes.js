@@ -25,7 +25,7 @@ module.exports = {
     },
     bargap: {
         valType: 'number',
-        dflt: 0.2,
+        dflt: 0,
         min: 0,
         max: 1,
         role: 'style',

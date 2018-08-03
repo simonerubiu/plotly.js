@@ -6,7 +6,6 @@
 * LICENSE file in the root directory of this source tree.
 */
 
-
 'use strict';
 
 var Lib = require('../../lib');
@@ -26,7 +25,11 @@ module.exports = function supplyDefaults(traceIn, traceOut, defaultColor, layout
         return;
     }
 
+    // TODO
+    // thetaunit should affect 'offset' / 'width' (for radial orientations) and
+    // 'base' for angular orientations
     coerce('thetaunit');
+
     coerce('orientation', (traceOut.theta && !traceOut.r) ? 'angular' : 'radial');
     coerce('base');
     coerce('offset');

@@ -8,33 +8,26 @@
 
 'use strict';
 
-var scatterHover = require('../scatter/hover');
+var barHover = require('../bar/hover');
 var Axes = require('../../plots/cartesian/axes');
 var Lib = require('../../lib');
 
 function hoverPoints(pointData, xval, yval, hovermode) {
-    return;
-    var scatterPointData = scatterHover(pointData, xval, yval, hovermode);
-    if(!scatterPointData || scatterPointData[0].index === false) return;
+    // TODO might need a seperate hoverPoints in r/theta space
+    var barPointData = barHover(pointData, xval, yval, hovermode);
+    if(!barPointData || barPointData[0].index === false) return;
 
-    var newPointData = scatterPointData[0];
-
-    // hovering on fill case
-    if(newPointData.index === undefined) {
-        return scatterPointData;
-    }
+    var newPointData = barPointData[0];
 
     var subplot = pointData.subplot;
     var cdi = newPointData.cd[newPointData.index];
     var trace = newPointData.trace;
 
-    if(!subplot.isPtWithinSector(cdi)) return;
-
     newPointData.xLabelVal = undefined;
     newPointData.yLabelVal = undefined;
     newPointData.extraText = makeHoverPointText(cdi, trace, subplot);
 
-    return scatterPointData;
+    return barPointData;
 }
 
 function makeHoverPointText(cdi, trace, subplot) {

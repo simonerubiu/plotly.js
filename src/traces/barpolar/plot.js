@@ -47,7 +47,7 @@ module.exports = function plot(gd, subplot, cdbar) {
         var cd0 = d[0];
         var t = cd0.t;
         var trace = cd0.trace;
-        var sel = d3.select(this);
+        var sel = cd0.node3 = d3.select(this);
 
         var poffset = t.poffset;
         var poffsetIsArray = Array.isArray(poffset);
@@ -106,6 +106,10 @@ module.exports = function plot(gd, subplot, cdbar) {
 
             // for selections
             di.ct = ra2xy(s1, (p0 + p1) / 2);
+
+            // for hover
+            di.x = xa.p2c(di.ct[0]);
+            di.y = ya.p2c(di.ct[1]);
 
             // TODO round up bar borders?
 

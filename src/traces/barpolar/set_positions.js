@@ -10,6 +10,7 @@
 
 var Registry = require('../../registry');
 var setGroupPositions = require('../bar/set_positions').setGroupPositions;
+var extendFlat = require('../../lib').extendFlat;
 
 module.exports = function setPositions(gd, polarLayout) {
     var calcdata = gd.calcdata;
@@ -29,7 +30,12 @@ module.exports = function setPositions(gd, polarLayout) {
         }
     }
 
-    var rAxis = polarLayout.radialaxis;
+    // to make _extremes is filled in correctly so that
+    // polar._subplot.radialAxis can get auotrange'd
+    // TODO clean up!
+    // I think we want to call getAutorange on polar.radialaxis
+    // NOT on polar._subplot.radialAxis
+    var rAxis = extendFlat({}, polarLayout.radialaxis, {_id: 'x'});
     var aAxis = polarLayout.angularaxis;
 
     setGroupPositions(gd, aAxis, rAxis, cdRadial);
