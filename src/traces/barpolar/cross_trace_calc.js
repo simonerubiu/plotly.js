@@ -9,10 +9,10 @@
 'use strict';
 
 var Registry = require('../../registry');
-var setGroupPositions = require('../bar/set_positions').setGroupPositions;
+var setGroupPositions = require('../bar/cross_trace_calc').setGroupPositions;
 var extendFlat = require('../../lib').extendFlat;
 
-module.exports = function setPositions(gd, polarLayout) {
+module.exports = function crossTraceCalc(gd, polarLayout) {
     var calcdata = gd.calcdata;
     var cdRadial = [];
     var cdAngular = [];

@@ -62,7 +62,7 @@ module.exports = function plot(gd, subplot, cdbar) {
         bars.each(function(di, i) {
             var bar = d3.select(this);
 
-            // TODO move this block to Bar.setPositions?
+            // TODO move this block to Bar.crossTraceCalc?
             //
             // now display the bar
             // clipped xf/yf (2nd arg true): non-positive
