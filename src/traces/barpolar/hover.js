@@ -14,6 +14,8 @@ var Lib = require('../../lib');
 
 function hoverPoints(pointData, xval, yval, hovermode) {
     // TODO might need a seperate hoverPoints in r/theta space
+    return;
+
     var barPointData = barHover(pointData, xval, yval, hovermode);
     if(!barPointData || barPointData[0].index === false) return;
 
@@ -39,16 +41,6 @@ function makeHoverPointText(cdi, trace, subplot) {
 
     radialAxis._hovertitle = 'r';
     angularAxis._hovertitle = 'θ';
-
-    var rad = angularAxis._c2rad(cdi.theta, trace.thetaunit);
-
-    // show theta value in unit of angular axis
-    var theta;
-    if(angularAxis.type === 'linear' && trace.thetaunit !== angularAxis.thetaunit) {
-        theta = angularAxis.thetaunit === 'degrees' ? Lib.rad2deg(rad) : rad;
-    } else {
-        theta = cdi.theta;
-    }
 
     function textPart(ax, val) {
         text.push(ax._hovertitle + ': ' + Axes.tickText(ax, val, 'hover').text);

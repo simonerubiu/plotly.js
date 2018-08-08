@@ -23,10 +23,6 @@ module.exports = function calc(gd, trace) {
     var len = trace._length;
     var cd = new Array(len);
 
-    function c2rad(v) {
-        return angularAxis.c2rad(v, trace.thetaunit);
-    }
-
     // 'size' axis variables
     var sArray;
     // 'pos' axis variables
@@ -34,18 +30,14 @@ module.exports = function calc(gd, trace) {
 
     if(trace.orientation === 'radial') {
         sArray = rArray;
-        pArray = thetaArray.map(c2rad);
+        pArray = thetaArray;
     } else {
-        sArray = thetaArray.map(c2rad);
+        sArray = thetaArray;
         pArray = rArray;
     }
 
     for(var i = 0; i < len; i++) {
-        cd[i] = {
-            p: pArray[i],
-            s: sArray[i],
-            theta: thetaArray[i]
-        };
+        cd[i] = {p: pArray[i], s: sArray[i]};
     }
 
     if(hasColorscale(trace, 'marker')) {

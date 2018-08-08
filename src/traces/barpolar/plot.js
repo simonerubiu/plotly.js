@@ -29,6 +29,8 @@ module.exports = function plot(gd, subplot, cdbar) {
         function(v) { return v <= 0; } :
         function(v) { return v >= 0; };
 
+    var angularAxis = subplot.angularAxis;
+
     var barLayer = subplot.layers.frontplot.select('g.barlayer');
 
     var bartraces = barLayer.selectAll('g.trace.bars')
@@ -81,16 +83,8 @@ module.exports = function plot(gd, subplot, cdbar) {
                     return;
                 }
 
-                var rr = radialAxis.c2r(r) - rRange[0];
-                var xc, yc;
-                if(rFilter(rr)) {
-                    xc = rr * Math.cos(a);
-                    yc = rr * Math.sin(a);
-                } else {
-                    xc = 0;
-                    yc = 0;
-                }
-                return [xa.c2p(xc), ya.c2p(yc)];
+                var rg = radialAxis.c2g(r);
+                return [xa.c2p(rg * Math.cos(a)), ya.c2p(rg * Math.sin(a))];
             };
 
             var corners = [
