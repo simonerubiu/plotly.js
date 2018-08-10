@@ -53,7 +53,7 @@ module.exports = overrideAll({
             'is necessary from the value.'
         ].join(' ')
     },
-
+    //iMAGO added separatethousands
     separatethousands: {
         valType: 'boolean',
         dflt: false,
